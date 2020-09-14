@@ -37,9 +37,11 @@ interface SignUpFormData {
   name: string;
   email: string;
   password: string;
+  state: string;
+  city: string;
 }
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigator = useNavigation();
 
@@ -64,7 +66,7 @@ const SignIn: React.FC = () => {
             .email('Digite um e-mail válido')
             .required('Email obrigatório'),
           password: Yup.string().min(6, 'Mínimo de 6 caracteres'),
-          uf: Yup.string().required('O estado é obrigatório'),
+          state: Yup.string().required('O estado é obrigatório'),
           city: Yup.string().required('A cidade é obrigatória'),
         });
 
@@ -78,7 +80,7 @@ const SignIn: React.FC = () => {
 
         Alert.alert(
           'Cadastro realizado',
-          'Você já pode fazer seu logon no GoBarber',
+          'Você já pode fazer seu login no PLamvi!',
         );
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -116,7 +118,7 @@ const SignIn: React.FC = () => {
             </GoBackButton>
           </Header>
           <TitleContainer>
-            <Title>Seja Bem-vindo ao plamvi!</Title>
+            <Title>Seja Bem-vindo ao plamvi.</Title>
             <Description>
               Antes de começar, você precisa nos informar alguns dados.
             </Description>
@@ -163,7 +165,7 @@ const SignIn: React.FC = () => {
             <PlaceInputContainer>
               <PlaceInput
                 autoCorrect={false}
-                name="uf"
+                name="state"
                 icon="map"
                 placeholder="UF"
                 returnKeyType="next"
@@ -197,4 +199,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

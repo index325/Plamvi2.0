@@ -30,6 +30,8 @@
   ],
   "rules": {
     "no-use-before-define": "off",
+    "no-unused-expressions": "off",
+    "jsx-a11y/accessible-emoji": "off",
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

@@ -1,57 +1,76 @@
 import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
+import { Form } from '@unform/mobile';
+
 export const Container = styled.View`
   flex: 1;
-  justify-content: center;
-
   padding: 24px;
-
   background-color: #f7f7f7;
+
+  justify-content: center;
 `;
 
-export const LogoContainer = styled.View`
-  margin-top: 96px;
+export const Header = styled.View``;
+
+export const GoBackButton = styled.TouchableOpacity``;
+
+export const TitleContainer = styled.View`
+  margin-top: 32px;
+  margin-bottom: 64px;
 `;
 
-export const Logo = styled.Image`
-  width: 240px;
-  height: 64px;
+export const Title = styled.Text`
+  font-size: 32px;
+  font-family: 'Roboto-Bold';
+
+  color: #ff3647;
 
   margin-bottom: 16px;
 `;
 
-export const Subtitle = styled.Text`
+export const Description = styled.Text`
+  font-size: 14px;
   color: #5e5e5e;
-  font-size: 15px;
-  font-family: 'Roboto-Medium';
 `;
 
-export const ButtonsContainer = styled.View`
-  margin-top: 248px;
-
-  align-items: center;
+export const SignInForm = styled(Form)`
+  flex: 1;
+  justify-content: space-between;
 `;
 
-export const Button = styled(RectButton)`
+export const FormBody = styled.View`
+  margin-top: 16px;
+`;
+
+export const ForgotPasswordButton = styled.TouchableOpacity`
+  padding: 8px 16px;
+`;
+
+export const ForgotPasswordText = styled.Text`
+  font-family: 'Roboto-Regular';
+  font-size: 13px;
+  color: #5e5e5e;
+`;
+
+export const SubmitButton = styled(RectButton)`
   background-color: #ff3647;
   height: 64px;
   width: 100%;
-
   border-radius: 8px;
   margin-bottom: 8px;
+  margin-top: 8px;
 
   flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
 
-export const ButtonText = styled.Text`
+export const SubmitButtonText = styled.Text`
   color: #fff;
-  font-weight: bold;
 
   font-size: 16px;
   margin: auto;
 
-  font-family: 'Roboto-Regular';
+  font-family: 'Roboto-Bold';
 `;
