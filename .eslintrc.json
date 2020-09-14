@@ -31,10 +31,14 @@
   "rules": {
     "no-use-before-define": "off",
     "no-unused-expressions": "off",
+    "react/prop-types": "off",
     "jsx-a11y/accessible-emoji": "off",
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-empty-function": "off",
+    "global-require": "off",
+    "@typescript-eslint/ban-types": "off",
     "react/jsx-filename-extension": [
       1,
       {

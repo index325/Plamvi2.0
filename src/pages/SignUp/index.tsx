@@ -86,8 +86,6 @@ const SignUp: React.FC = () => {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
-          console.log(errors);
-
           formRef.current?.setErrors(errors);
 
           return;
@@ -187,10 +185,8 @@ const SignUp: React.FC = () => {
               />
             </PlaceInputContainer>
 
-            <SubmitButton>
-              <SubmitButtonText onPress={() => formRef.current?.submitForm()}>
-                Cadastrar
-              </SubmitButtonText>
+            <SubmitButton onPress={() => formRef.current?.submitForm()}>
+              <SubmitButtonText>Cadastrar</SubmitButtonText>
             </SubmitButton>
           </Form>
         </Container>

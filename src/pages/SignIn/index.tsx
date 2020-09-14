@@ -77,13 +77,10 @@ const SignIn: React.FC = () => {
           data,
         );
 
-        console.log(response.data);
         // navigator.navigate('Dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
-
-          console.log(errors);
 
           formRef.current?.setErrors(errors);
 
@@ -153,10 +150,8 @@ const SignIn: React.FC = () => {
               </ForgotPasswordButton>
             </FormBody>
 
-            <SubmitButton>
-              <SubmitButtonText onPress={() => formRef.current?.submitForm()}>
-                Entrar
-              </SubmitButtonText>
+            <SubmitButton onPress={() => formRef.current?.submitForm()}>
+              <SubmitButtonText>Entrar</SubmitButtonText>
             </SubmitButton>
           </SignInForm>
         </Container>

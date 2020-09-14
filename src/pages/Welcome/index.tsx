@@ -32,10 +32,8 @@ const WelcomeScreen: React.FC = () => {
       </LogoContainer>
 
       <ButtonsContainer>
-        <Button>
-          <ButtonText onPress={() => handleNavigateTo('SignUp')}>
-            Não tenho uma conta
-          </ButtonText>
+        <Button onPress={() => handleNavigateTo('SignUp')}>
+          <ButtonText>Não tenho uma conta</ButtonText>
           <Icon
             name="chevron-right"
             size={18}
@@ -43,10 +41,8 @@ const WelcomeScreen: React.FC = () => {
             style={{ marginRight: 8 }}
           />
         </Button>
-        <Button>
-          <ButtonText onPress={() => handleNavigateTo('SignIn')}>
-            Já tenho uma conta
-          </ButtonText>
+        <Button onPress={() => handleNavigateTo('SignIn')}>
+          <ButtonText>Já tenho uma conta</ButtonText>
           <Icon
             name="chevron-right"
             size={18}
