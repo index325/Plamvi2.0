@@ -13,6 +13,7 @@ import { Container, TextInput, Icon } from './styles';
 
 interface InputProps extends TextInputProps {
   name: string;
+  // no ícone da WEB era repassado um componente, já no ReactNative é uma string
   icon: string;
 }
 
@@ -24,7 +25,7 @@ interface InputRef {
   focus(): void;
 }
 
-const Input: React.RefForwardingComponent<InputRef, InputProps> = (
+const PlaceInput: React.RefForwardingComponent<InputRef, InputProps> = (
   { name, icon, ...rest },
   ref,
 ) => {
@@ -91,4 +92,4 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   );
 };
 
-export default forwardRef(Input);
+export default forwardRef(PlaceInput);

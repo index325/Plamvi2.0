@@ -11,11 +11,12 @@ import * as Yup from 'yup';
 
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+
 import AntIcon from 'react-native-vector-icons/AntDesign';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
-// import Button from '../../components/Button';
+
 import api from '../../services/api';
 
 import {
@@ -27,9 +28,10 @@ import {
   GoBackButton,
   SubmitButton,
   SubmitButtonText,
-  // PlaceInputContainer,
-  // PlaceInputGroupContainer,
+  PlaceInputContainer,
 } from './styles';
+
+import PlaceInput from '../../components/PlaceInput';
 
 interface SignUpFormData {
   name: string;
@@ -158,30 +160,30 @@ const SignIn: React.FC = () => {
               }}
             />
 
-            <Input
-              autoCorrect={false}
-              name="uf"
-              icon="map"
-              halfInput={true}
-              placeholder="UF"
-              returnKeyType="next"
-              ref={ufInputRef}
-              onSubmitEditing={() => {
-                cityInputRef.current?.focus();
-              }}
-            />
-            <Input
-              autoCorrect={false}
-              name="city"
-              icon="home"
-              halfInput={true}
-              placeholder="Cidade"
-              returnKeyType="next"
-              ref={cityInputRef}
-              onSubmitEditing={() => {
-                formRef.current?.submitForm();
-              }}
-            />
+            <PlaceInputContainer>
+              <PlaceInput
+                autoCorrect={false}
+                name="uf"
+                icon="map"
+                placeholder="UF"
+                returnKeyType="next"
+                ref={ufInputRef}
+                onSubmitEditing={() => {
+                  cityInputRef.current?.focus();
+                }}
+              />
+              <PlaceInput
+                autoCorrect={false}
+                name="city"
+                icon="home"
+                placeholder="Cidade"
+                returnKeyType="next"
+                ref={cityInputRef}
+                onSubmitEditing={() => {
+                  formRef.current?.submitForm();
+                }}
+              />
+            </PlaceInputContainer>
 
             <SubmitButton>
               <SubmitButtonText onPress={() => formRef.current?.submitForm()}>
