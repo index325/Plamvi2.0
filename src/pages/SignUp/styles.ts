@@ -5,8 +5,10 @@ import Icon from 'react-native-vector-icons/Feather';
 export const Container = styled.View`
   flex: 1;
   padding: 24px;
-
   background-color: #f7f7f7;
+
+  /* Tive que colocar isso pra funcionar o keyboard avoiding view */
+  justify-content: center;
 `;
 
 export const Header = styled.View``;
@@ -83,16 +85,18 @@ export const PlaceInputContainer = styled.View`
 `;
 
 export const SubmitButton = styled(RectButton)`
-  position: absolute;
+  /* Tive que tirar pois, iria ficar em cima de tudo */
+  /* position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 0; */
 
   background-color: #ff3647;
   height: 64px;
   width: 100%;
   border-radius: 8px;
   margin-bottom: 8px;
+  margin-top: 8px;
 
   flex-direction: row;
   align-items: center;
