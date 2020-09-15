@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Platform,
   KeyboardAvoidingView,
@@ -12,7 +13,7 @@ import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
-
+import { authRequest } from '../../redux/modules/auth/actions';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 
@@ -46,6 +47,7 @@ interface SignInResponse {
 }
 
 const SignIn: React.FC = () => {
+  const dispatch = useDispatch();
   const formRef = useRef<FormHandles>(null);
   const navigator = useNavigation();
 
@@ -72,10 +74,12 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        const response = await api.post<SignInResponse>(
-          '/users/sessions',
-          data,
-        );
+        // const response = await api.post<SignInResponse>(
+        //   '/users/sessions',
+        //   data,
+        // );
+
+        dispatch(authRequest({ password: data.password, email: data.email }));
 
         // navigator.navigate('Dashboard');
       } catch (err) {

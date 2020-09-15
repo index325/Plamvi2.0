@@ -39,6 +39,10 @@
     "@typescript-eslint/no-empty-function": "off",
     "global-require": "off",
     "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "no-plusplus": "off",
+    "no-param-reassign": "off",
+    "consistent-return": "off",
     "react/jsx-filename-extension": [
       1,
       {
