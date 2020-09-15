@@ -1,10 +1,10 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 
-import axios, { AxiosResponse } from 'axios';
-import { authFailure, authRequest, authSuccess } from './actions';
+import { AxiosResponse } from 'axios';
+import { authRequest, authSuccess } from './actions';
+import { alertRequest } from '../alerts/actions';
 import api from '../../../services/api';
 import { ActionTypes, IAuthState } from './types';
-import { IUser } from '../../../interfaces';
 
 type AuthRequest = ReturnType<typeof authRequest>;
 
@@ -23,8 +23,13 @@ function* auth({ payload }: AuthRequest) {
       }),
     );
   } catch (error) {
-    console.log('deu erro 😢');
-    // yield put(authFailure(product.id));
+    yield put(
+      alertRequest({
+        message: error.response.data.message,
+        messageType: 'error',
+        isDialog: true,
+      }),
+    );
   }
 }
 

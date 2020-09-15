@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { Alert } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { alertReset } from '../redux/modules/alerts/actions';
+
+import { IAlertState } from '../redux/modules/alerts/types';
+import { IState } from '../redux';
 
 import WelcomeScreen from '../pages/Welcome';
 import SignUpScreen from '../pages/SignUp';
@@ -9,6 +17,15 @@ import SignInScreen from '../pages/SignIn';
 
 const Routes: React.FC = () => {
   const { Navigator, Screen } = createStackNavigator();
+  const dispatch = useDispatch();
+  const message = useSelector<IState, IAlertState>(state => state.alerts);
+
+  useEffect(() => {
+    if (message.isDialog) {
+      Alert.alert(message.message);
+      dispatch(alertReset());
+    }
+  }, [message, dispatch]);
 
   return (
     <NavigationContainer>

@@ -1,6 +1,8 @@
 import { Reducer } from 'redux';
 import produce from 'immer';
+import { put } from 'redux-saga/effects';
 import { IUser, IAuthState, ActionTypes } from './types';
+import { alertRequest } from '../alerts/actions';
 
 const INITIAL_STATE: IAuthState = {
   token: '',
@@ -13,8 +15,6 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
       case ActionTypes.authSuccess: {
         const { user, token } = action.payload;
 
-        console.log(user, token);
-
         draft.user = user;
         draft.token = token;
 
@@ -22,8 +22,14 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
       }
 
       case ActionTypes.authFailure: {
-        // draft.push(action.payload.productId);
-        console.log(action.payload);
+        put(alertRequest(action.payload));
+
+        break;
+      }
+
+      case ActionTypes.logout: {
+        draft.user = {} as IUser;
+        draft.token = '';
 
         break;
       }

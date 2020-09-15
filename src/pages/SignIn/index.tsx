@@ -17,10 +17,6 @@ import { authRequest } from '../../redux/modules/auth/actions';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 
-import api from '../../services/api';
-
-import { IUser } from '../../interfaces';
-
 import {
   Container,
   Header,
@@ -39,11 +35,6 @@ import {
 interface SignUpFormData {
   email: string;
   password: string;
-}
-
-interface SignInResponse {
-  user: IUser;
-  token: string;
 }
 
 const SignIn: React.FC = () => {
@@ -96,7 +87,7 @@ const SignIn: React.FC = () => {
         );
       }
     },
-    [navigator],
+    [navigator, dispatch],
   );
 
   return (
