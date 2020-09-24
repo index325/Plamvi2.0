@@ -1,4 +1,3 @@
-import { IFailureMessage } from '../../../interfaces';
 import { ActionTypes, IAuthRequest, IAuthState } from './types';
 
 export function authRequest(authState: IAuthRequest) {
@@ -21,19 +20,14 @@ export function authSuccess(authState: IAuthState) {
   };
 }
 
-export function authFailure(failure: IFailureMessage) {
-  return {
-    type: ActionTypes.authFailure,
-    payload: {
-      message: failure.message,
-      messageType: failure.messageType,
-      isDialog: failure.isDialog,
-    },
-  };
-}
-
 export function logout() {
   return {
     type: ActionTypes.logout,
+  };
+}
+
+export function loadUser() {
+  return {
+    type: ActionTypes.loadUser,
   };
 }

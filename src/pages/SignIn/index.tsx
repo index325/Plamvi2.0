@@ -65,14 +65,7 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        // const response = await api.post<SignInResponse>(
-        //   '/users/sessions',
-        //   data,
-        // );
-
         dispatch(authRequest({ password: data.password, email: data.email }));
-
-        // navigator.navigate('Dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -132,8 +125,10 @@ const SignIn: React.FC = () => {
                 autoCorrect={false}
                 name="password"
                 icon="lock"
+                secureTextEntry
                 placeholder="Senha"
                 returnKeyType="next"
+                autoCompleteType="password"
                 ref={passwordInputRef}
                 onSubmitEditing={() => {
                   emailInputRef.current?.focus();

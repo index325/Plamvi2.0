@@ -14,6 +14,8 @@ import { IState } from '../redux';
 import WelcomeScreen from '../pages/Welcome';
 import SignUpScreen from '../pages/SignUp';
 import SignInScreen from '../pages/SignIn';
+import ClientSelection from '../pages/ClientSelection';
+import ProductsSelection from '../pages/ProductsSelection';
 
 const Routes: React.FC = () => {
   const { Navigator, Screen } = createStackNavigator();
@@ -34,7 +36,7 @@ const Routes: React.FC = () => {
         screenOptions={{ headerShown: false }}
       >
         <Screen name="Welcome" component={WelcomeScreen} />
-        <Screen name="SignIn" component={SignInScreen} />
+        <Screen name="SignIn" component={ProductsSelection} />
         <Screen name="SignUp" component={SignUpScreen} />
       </Navigator>
     </NavigationContainer>
