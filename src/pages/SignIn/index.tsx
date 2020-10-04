@@ -17,10 +17,6 @@ import { authRequest } from '../../redux/modules/auth/actions';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 
-import api from '../../services/api';
-
-import { IUser } from '../../interfaces';
-
 import {
   Container,
   Header,
@@ -39,11 +35,6 @@ import {
 interface SignUpFormData {
   email: string;
   password: string;
-}
-
-interface SignInResponse {
-  user: IUser;
-  token: string;
 }
 
 const SignIn: React.FC = () => {
@@ -74,14 +65,7 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        // const response = await api.post<SignInResponse>(
-        //   '/users/sessions',
-        //   data,
-        // );
-
         dispatch(authRequest({ password: data.password, email: data.email }));
-
-        // navigator.navigate('Dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -96,7 +80,7 @@ const SignIn: React.FC = () => {
         );
       }
     },
-    [navigator],
+    [navigator, dispatch],
   );
 
   return (
@@ -141,8 +125,10 @@ const SignIn: React.FC = () => {
                 autoCorrect={false}
                 name="password"
                 icon="lock"
+                secureTextEntry
                 placeholder="Senha"
                 returnKeyType="next"
+                autoCompleteType="password"
                 ref={passwordInputRef}
                 onSubmitEditing={() => {
                   emailInputRef.current?.focus();

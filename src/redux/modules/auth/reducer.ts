@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
 import produce from 'immer';
+import AsyncStorage from '@react-native-community/async-storage';
 import { IUser, IAuthState, ActionTypes } from './types';
 
 const INITIAL_STATE: IAuthState = {
@@ -13,17 +14,45 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
       case ActionTypes.authSuccess: {
         const { user, token } = action.payload;
 
-        console.log(user, token);
-
         draft.user = user;
         draft.token = token;
+
+        AsyncStorage.setItem('Plamvi:User', JSON.stringify(user));
+        AsyncStorage.setItem('Plamvi:Token', token);
 
         break;
       }
 
-      case ActionTypes.authFailure: {
-        // draft.push(action.payload.productId);
-        console.log(action.payload);
+      case ActionTypes.logout: {
+        draft.user = {} as IUser;
+        draft.token = '';
+
+        AsyncStorage.removeItem('Plamvi:User');
+        AsyncStorage.removeItem('Plamvi:Token');
+
+        break;
+      }
+
+      case ActionTypes.loadUser: {
+        let storagedUser;
+        AsyncStorage.getItem('Plamvi:User').then(value => {
+          storagedUser = value;
+        });
+
+        if (storagedUser) {
+          const user = JSON.parse(storagedUser);
+
+          draft.user = user;
+        }
+
+        let storagedToken;
+        AsyncStorage.getItem('Plamvi:Token').then(value => {
+          storagedToken = value;
+        });
+
+        if (storagedToken) {
+          draft.token = storagedToken;
+        }
 
         break;
       }

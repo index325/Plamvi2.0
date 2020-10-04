@@ -20,11 +20,14 @@ export function authSuccess(authState: IAuthState) {
   };
 }
 
-export function authFailure() {
+export function logout() {
   return {
-    type: ActionTypes.authFailure,
-    payload: {
-      error: 'deu erro',
-    },
+    type: ActionTypes.logout,
+  };
+}
+
+export function loadUser() {
+  return {
+    type: ActionTypes.loadUser,
   };
 }
