@@ -18,15 +18,18 @@ import {
   AddButton,
   AddButtonText,
   BuyContainer,
-  ProductImageContainer,
-  ProductImage,
-  ProductInformationContainer,
-  ProductInformation,
   CardInformation,
   CardImage,
   CardTextContainer,
   CardText,
   CardTitle,
+  RelatedProducts,
+  RelatedProduct,
+  RelatedProductText,
+  RelatedProductImage,
+  RelatedProductSectionText,
+  RelatedProductSection,
+  RelatedProductPrice,
 } from './styles';
 
 const ProductDetail: React.FC = () => {
@@ -50,15 +53,6 @@ const ProductDetail: React.FC = () => {
           blandit quis magna elementum faucibus.
         </Description>
       </TitleContainer>
-      {/* <ProductInformationContainer>
-        <ProductImageContainer>
-          <ProductImage
-            style={{ resizeMode: 'center' }}
-            source={require('../../assets/arroz.jpg')}
-          />
-        </ProductImageContainer>
-        <ProductInformation />
-      </ProductInformationContainer> */}
 
       <CardInformation>
         <CardImage
@@ -73,14 +67,6 @@ const ProductDetail: React.FC = () => {
           </CardText>
         </CardTextContainer>
       </CardInformation>
-
-      {/* <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 20 }}
-        >
-
-</ScrollView> */}
 
       <Content>
         <BuyContainer>
@@ -99,6 +85,68 @@ const ProductDetail: React.FC = () => {
           </AddButton>
         </BuyContainer>
       </Content>
+
+      <RelatedProductSection>
+        <RelatedProductSectionText>
+          Produtos relacionados:
+        </RelatedProductSectionText>
+      </RelatedProductSection>
+      <RelatedProducts horizontal showsHorizontalScrollIndicator={false}>
+        <RelatedProduct>
+          <RelatedProductImage
+            style={{ resizeMode: 'center' }}
+            source={require('../../assets/arroz.jpg')}
+          />
+          <RelatedProductText>
+            Teste meu deus do céu que teste grande caralho meu deus do céu o que
+            que eu faço agora? jesus
+          </RelatedProductText>
+          <RelatedProductPrice>R$ 17,90</RelatedProductPrice>
+        </RelatedProduct>
+        <RelatedProduct>
+          <RelatedProductImage
+            style={{ resizeMode: 'center' }}
+            source={require('../../assets/arroz.jpg')}
+          />
+          <RelatedProductText>Teste um pouco menor</RelatedProductText>
+          <RelatedProductPrice>R$ 17,90</RelatedProductPrice>
+        </RelatedProduct>
+        <RelatedProduct>
+          <RelatedProductImage
+            style={{ resizeMode: 'center' }}
+            source={require('../../assets/arroz.jpg')}
+          />
+          <RelatedProductText>Teste</RelatedProductText>
+        </RelatedProduct>
+        <RelatedProduct>
+          <RelatedProductImage
+            style={{ resizeMode: 'center' }}
+            source={require('../../assets/arroz.jpg')}
+          />
+          <RelatedProductText>Teste</RelatedProductText>
+        </RelatedProduct>
+        <RelatedProduct>
+          <RelatedProductImage
+            style={{ resizeMode: 'center' }}
+            source={require('../../assets/arroz.jpg')}
+          />
+          <RelatedProductText>Teste</RelatedProductText>
+        </RelatedProduct>
+        <RelatedProduct>
+          <RelatedProductImage
+            style={{ resizeMode: 'center' }}
+            source={require('../../assets/arroz.jpg')}
+          />
+          <RelatedProductText>Teste</RelatedProductText>
+        </RelatedProduct>
+        <RelatedProduct>
+          <RelatedProductImage
+            style={{ resizeMode: 'center' }}
+            source={require('../../assets/arroz.jpg')}
+          />
+          <RelatedProductText>Teste</RelatedProductText>
+        </RelatedProduct>
+      </RelatedProducts>
     </Container>
   );
 };

@@ -143,3 +143,53 @@ export const CardTextContainer = styled.View`
 export const CardText = styled.Text`
   padding: 8px 0px;
 `;
+
+export const RelatedProducts = styled.ScrollView`
+  margin-bottom: 48px;
+`;
+
+export const RelatedProduct = styled.TouchableOpacity`
+  background-color: #fff;
+  border-width: 2;
+  border-color: #eee;
+  min-height: 220;
+  width: 220;
+  border-radius: 8;
+  padding-top: 20;
+  padding-bottom: 16;
+  margin-right: 8;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+`;
+
+export const RelatedProductText = styled.Text`
+  font-size: 16px;
+  font-family: 'Roboto-Bold';
+  align-items: center;
+  color: #ff3647;
+  padding: 0px 8px;
+`;
+
+export const RelatedProductImage = styled.Image`
+  width: 110px;
+  height: 110px;
+`;
+
+export const RelatedProductSection = styled.View`
+  margin-bottom: 16px;
+`;
+
+export const RelatedProductSectionText = styled.Text`
+  font-size: 24px;
+  font-family: 'Roboto-Bold';
+  align-items: flex-start;
+  color: #ff3647;
+`;
+
+export const RelatedProductPrice = styled.Text`
+  font-size: 16px;
+  font-family: 'Roboto-Bold';
+  align-items: flex-start;
+  color: #ff3647;
+`;
