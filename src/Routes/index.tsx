@@ -15,6 +15,8 @@ import WelcomeScreen from '../pages/Welcome';
 import SignUpScreen from '../pages/SignUp';
 import SignInScreen from '../pages/SignIn';
 import ClientSelection from '../pages/ClientSelection';
+import ProductDetail from '../pages/ProductDetail';
+import Cart from '../pages/Cart';
 import ProductsSelection from '../pages/ProductsSelection';
 
 const Routes: React.FC = () => {
@@ -36,7 +38,7 @@ const Routes: React.FC = () => {
         screenOptions={{ headerShown: false }}
       >
         <Screen name="Welcome" component={WelcomeScreen} />
-        <Screen name="SignIn" component={ProductsSelection} />
+        <Screen name="SignIn" component={ProductDetail} />
         <Screen name="SignUp" component={SignUpScreen} />
       </Navigator>
     </NavigationContainer>

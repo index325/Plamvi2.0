@@ -2,6 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   Content,
@@ -24,9 +26,15 @@ import {
   AddButton,
   AddButtonText,
   BuyContainer,
+  TrashContainer,
+  Button,
+  ButtonText,
+  TotalContainer,
+  TotalText,
+  TotalValue,
 } from './styles';
 
-const ClientSelection: React.FC = () => {
+const Cart: React.FC = () => {
   const navigator = useNavigation();
 
   const handleGoBack = useCallback(() => {
@@ -41,14 +49,17 @@ const ClientSelection: React.FC = () => {
         </GoBackButton>
       </Header>
       <TitleContainer>
-        <Title>Seja bem-vindo(a) ao Mercadinho BigBoom!</Title>
+        <Title>Bem-vindo ao seu carrinho!</Title>
         <Description>
-          Selecione a quantidade do produto desejado e o adicione na sacola.
-          Quando terminar, é só fechar o carrinho!
+          Aqui você pode alterar a quantidade e excluir produtos do carrinho.
+          Quando terminar, é só clicar em Fechar Carrinho!
         </Description>
       </TitleContainer>
       <Content>
         <Card>
+          <TrashContainer>
+            <MaterialIcon name="delete" size={20} color="#ff3647" />
+          </TrashContainer>
           <CardInformation>
             <CardTextContainer>
               <CardTitle>Titulo do card</CardTitle>
@@ -72,13 +83,16 @@ const ClientSelection: React.FC = () => {
                 <BuyButtonText>+</BuyButtonText>
               </QuantityButton>
             </QuantityContainer>
-            <AddButton>
-              <AddButtonText>Adicionar</AddButtonText>
+            <AddButton enabled={false}>
+              <AddButtonText>Confirmar</AddButtonText>
               <AddButtonText>R$17,90</AddButtonText>
             </AddButton>
           </BuyContainer>
         </Card>
         <Card>
+          <TrashContainer>
+            <MaterialIcon name="delete" size={20} color="#ff3647" />
+          </TrashContainer>
           <CardInformation>
             <CardTextContainer>
               <CardTitle>Titulo do card</CardTitle>
@@ -89,7 +103,7 @@ const ClientSelection: React.FC = () => {
             </CardTextContainer>
             <CardImage
               style={{ resizeMode: 'center' }}
-              source={require('../../assets/logo.png')}
+              source={require('../../assets/arroz.jpg')}
             />
           </CardInformation>
           <BuyContainer>
@@ -102,15 +116,61 @@ const ClientSelection: React.FC = () => {
                 <BuyButtonText>+</BuyButtonText>
               </QuantityButton>
             </QuantityContainer>
-            <AddButton>
-              <AddButtonText>Adicionar</AddButtonText>
+            <AddButton enabled={false}>
+              <AddButtonText>Confirmar</AddButtonText>
               <AddButtonText>R$17,90</AddButtonText>
             </AddButton>
           </BuyContainer>
         </Card>
+        <Card>
+          <TrashContainer>
+            <MaterialIcon name="delete" size={20} color="#ff3647" />
+          </TrashContainer>
+          <CardInformation>
+            <CardTextContainer>
+              <CardTitle>Titulo do card</CardTitle>
+              <CardText>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+                blandit quis magna elementum faucibus.
+              </CardText>
+            </CardTextContainer>
+            <CardImage
+              style={{ resizeMode: 'center' }}
+              source={require('../../assets/arroz.jpg')}
+            />
+          </CardInformation>
+          <BuyContainer>
+            <QuantityContainer>
+              <QuantityButton>
+                <BuyButtonText>-</BuyButtonText>
+              </QuantityButton>
+              <QuantityText>1</QuantityText>
+              <QuantityButton>
+                <BuyButtonText>+</BuyButtonText>
+              </QuantityButton>
+            </QuantityContainer>
+            <AddButton enabled={false}>
+              <AddButtonText>Confirmar</AddButtonText>
+              <AddButtonText>R$17,90</AddButtonText>
+            </AddButton>
+          </BuyContainer>
+        </Card>
+        <TotalContainer>
+          <TotalText>Total:</TotalText>
+          <TotalValue>R$300,50</TotalValue>
+        </TotalContainer>
+        <Button>
+          <ButtonText>Fechar Carrinho</ButtonText>
+          <Entypo
+            name="chevron-right"
+            size={18}
+            color="#fff"
+            style={{ marginRight: 8 }}
+          />
+        </Button>
       </Content>
     </Container>
   );
 };
 
-export default ClientSelection;
+export default Cart;
