@@ -49,7 +49,7 @@ const ClientSelection: React.FC = () => {
       </TitleContainer>
       <Content>
         <Card>
-          <CardInformation>
+          <CardInformation onPress={() => navigator.navigate('ProductDetail')}>
             <CardTextContainer>
               <CardTitle>Titulo do card</CardTitle>
               <CardText>

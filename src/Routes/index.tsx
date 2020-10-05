@@ -1,26 +1,17 @@
 import React, { useEffect } from 'react';
-
 import { Alert } from 'react-native';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { alertReset } from '../redux/modules/alerts/actions';
-
-import { IAlertState } from '../redux/modules/alerts/types';
+import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../redux';
+import { alertReset } from '../redux/modules/alerts/actions';
+import { IAlertState } from '../redux/modules/alerts/types';
+import { IAuthState } from '../redux/modules/auth/types';
 
-import WelcomeScreen from '../pages/Welcome';
-import SignUpScreen from '../pages/SignUp';
-import SignInScreen from '../pages/SignIn';
-import ClientSelection from '../pages/ClientSelection';
-import ProductDetail from '../pages/ProductDetail';
-import Cart from '../pages/Cart';
-import ProductsSelection from '../pages/ProductsSelection';
+import AppRoutes from './app.routes';
+import AuthRoutes from './auth.routes';
 
-const Routes: React.FC = () => {
-  const { Navigator, Screen } = createStackNavigator();
+const Routes = () => {
+  const { user } = useSelector<IState, IAuthState>(state => state.auth);
+
   const dispatch = useDispatch();
   const message = useSelector<IState, IAlertState>(state => state.alerts);
 
@@ -31,18 +22,7 @@ const Routes: React.FC = () => {
     }
   }, [message, dispatch]);
 
-  return (
-    <NavigationContainer>
-      <Navigator
-        initialRouteName="Welcome"
-        screenOptions={{ headerShown: false }}
-      >
-        <Screen name="Welcome" component={WelcomeScreen} />
-        <Screen name="SignIn" component={ProductDetail} />
-        <Screen name="SignUp" component={SignUpScreen} />
-      </Navigator>
-    </NavigationContainer>
-  );
+  return user ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;

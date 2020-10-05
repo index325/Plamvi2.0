@@ -2,9 +2,8 @@ import 'react-native-gesture-handler';
 
 import React from 'react';
 
-import { Alert } from 'react-native';
-
 import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
 import store from './redux';
 
 import Routes from './Routes';
@@ -12,7 +11,9 @@ import Routes from './Routes';
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <Routes />
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
     </Provider>
   );
 };

@@ -87,7 +87,7 @@ export const CardTitle = styled.Text`
   color: #ff3647;
 `;
 
-export const CardInformation = styled.View`
+export const CardInformation = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
 `;

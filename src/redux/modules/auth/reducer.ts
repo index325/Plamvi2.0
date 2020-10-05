@@ -24,7 +24,7 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
       }
 
       case ActionTypes.logout: {
-        draft.user = {} as IUser;
+        draft.user = null;
         draft.token = '';
 
         AsyncStorage.removeItem('Plamvi:User');

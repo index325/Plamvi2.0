@@ -80,7 +80,7 @@ const SignIn: React.FC = () => {
         );
       }
     },
-    [navigator, dispatch],
+    [dispatch],
   );
 
   return (

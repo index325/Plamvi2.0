@@ -1,10 +1,9 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
-import { FormHandles } from '@unform/core';
-
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
+import { logout } from '../../redux/modules/auth/actions';
 
 import {
   Content,
@@ -19,11 +18,12 @@ import {
 } from './styles';
 
 const ClientSelection: React.FC = () => {
-  const navigator = useNavigation();
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handleGoBack = useCallback(() => {
-    navigator.goBack();
-  }, [navigator]);
+    dispatch(logout());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -40,7 +40,7 @@ const ClientSelection: React.FC = () => {
         </Description>
       </TitleContainer>
       <Content>
-        <Card>
+        <Card onPress={() => navigation.navigate('Home')}>
           <CardText>Comprar no Mercadinho BigBoom</CardText>
           <Icon
             name="chevron-right"
