@@ -8,5 +8,12 @@ export enum ActionTypes {
 export interface IAlertState {
   message: string;
   isDialog: boolean;
-  messageType: string;
+  messageType:
+    | 'none'
+    | 'default'
+    | 'info'
+    | 'success'
+    | 'danger'
+    | 'warning'
+    | undefined;
 }

@@ -1,7 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import { useDispatch, useSelector } from 'react-redux';
+import { IProduct } from '../../interfaces';
+import { IState } from '../../redux';
+import { IAuthState } from '../../redux/modules/auth/types';
+import { cartAddItem } from '../../redux/modules/cart/actions';
+import api from '../../services/api';
+import formatValue from '../../utils/formatValue';
 
 import {
   Content,
@@ -32,12 +39,44 @@ import {
   RelatedProductPrice,
 } from './styles';
 
-const ProductDetail: React.FC = () => {
+const ProductDetail: React.FC = ({ route }: any) => {
   const navigator = useNavigation();
+  const dispatch = useDispatch();
+
+  const [product, setProduct] = useState({} as IProduct);
+  const [quantity, setQuantity] = useState(1);
+  const { token } = useSelector<IState, IAuthState>(state => state.auth);
 
   const handleGoBack = useCallback(() => {
     navigator.goBack();
   }, [navigator]);
+
+  useEffect(() => {
+    const { id } = route.params;
+
+    async function getProducts() {
+      const response = await api.get<IProduct>(`/products/detail/${id}`);
+
+      setProduct(response.data);
+    }
+
+    getProducts();
+  }, [route]);
+
+  const addQuantity = useCallback(() => {
+    setQuantity(quantity + 1);
+  }, [quantity]);
+
+  const subtractQuantity = useCallback(() => {
+    if (quantity === 1) {
+      return;
+    }
+    setQuantity(quantity - 1);
+  }, [quantity]);
+
+  const handleAddProductToCart = useCallback(() => {
+    dispatch(cartAddItem({ token, product_id: product.id, quantity }));
+  }, [dispatch, token, product, quantity]);
 
   return (
     <Container>
@@ -47,11 +86,8 @@ const ProductDetail: React.FC = () => {
         </GoBackButton>
       </Header>
       <TitleContainer>
-        <Title>Arroz tipo 1 - Tio João</Title>
-        <Description>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-          blandit quis magna elementum faucibus.
-        </Description>
+        <Title>{product.name}</Title>
+        <Description>{product.short_description}</Description>
       </TitleContainer>
 
       <CardInformation>
@@ -61,27 +97,26 @@ const ProductDetail: React.FC = () => {
         />
         <CardTextContainer>
           <CardTitle>Informações importantes:</CardTitle>
-          <CardText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-            blandit quis magna elementum faucibus.
-          </CardText>
+          <CardText>{product.description}</CardText>
         </CardTextContainer>
       </CardInformation>
 
       <Content>
         <BuyContainer>
           <QuantityContainer>
-            <QuantityButton>
+            <QuantityButton onPress={subtractQuantity}>
               <BuyButtonText>-</BuyButtonText>
             </QuantityButton>
-            <QuantityText>1</QuantityText>
-            <QuantityButton>
+            <QuantityText>{quantity}</QuantityText>
+            <QuantityButton onPress={addQuantity}>
               <BuyButtonText>+</BuyButtonText>
             </QuantityButton>
           </QuantityContainer>
-          <AddButton>
+          <AddButton onPress={() => handleAddProductToCart()}>
             <AddButtonText>Adicionar</AddButtonText>
-            <AddButtonText>R$17,90</AddButtonText>
+            <AddButtonText>
+              {formatValue(product.price * quantity)}
+            </AddButtonText>
           </AddButton>
         </BuyContainer>
       </Content>
@@ -108,7 +143,7 @@ const ProductDetail: React.FC = () => {
             style={{ resizeMode: 'center' }}
             source={require('../../assets/arroz.jpg')}
           />
-          <RelatedProductText>Teste um pouco menor</RelatedProductText>
+          <RelatedProductText>Teste meu deus jesus</RelatedProductText>
           <RelatedProductPrice>R$ 17,90</RelatedProductPrice>
         </RelatedProduct>
         <RelatedProduct>
@@ -116,35 +151,26 @@ const ProductDetail: React.FC = () => {
             style={{ resizeMode: 'center' }}
             source={require('../../assets/arroz.jpg')}
           />
-          <RelatedProductText>Teste</RelatedProductText>
+          <RelatedProductText>Teste meu deus do céu</RelatedProductText>
+          <RelatedProductPrice>R$ 17,90</RelatedProductPrice>
         </RelatedProduct>
         <RelatedProduct>
           <RelatedProductImage
             style={{ resizeMode: 'center' }}
             source={require('../../assets/arroz.jpg')}
           />
-          <RelatedProductText>Teste</RelatedProductText>
+          <RelatedProductText>
+            Teste meu deus do céu que teste grande
+          </RelatedProductText>
+          <RelatedProductPrice>R$ 17,90</RelatedProductPrice>
         </RelatedProduct>
         <RelatedProduct>
           <RelatedProductImage
             style={{ resizeMode: 'center' }}
             source={require('../../assets/arroz.jpg')}
           />
-          <RelatedProductText>Teste</RelatedProductText>
-        </RelatedProduct>
-        <RelatedProduct>
-          <RelatedProductImage
-            style={{ resizeMode: 'center' }}
-            source={require('../../assets/arroz.jpg')}
-          />
-          <RelatedProductText>Teste</RelatedProductText>
-        </RelatedProduct>
-        <RelatedProduct>
-          <RelatedProductImage
-            style={{ resizeMode: 'center' }}
-            source={require('../../assets/arroz.jpg')}
-          />
-          <RelatedProductText>Teste</RelatedProductText>
+          <RelatedProductText>Teste? jesus</RelatedProductText>
+          <RelatedProductPrice>R$ 17,90</RelatedProductPrice>
         </RelatedProduct>
       </RelatedProducts>
     </Container>

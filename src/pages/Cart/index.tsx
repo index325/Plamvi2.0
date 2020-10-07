@@ -4,6 +4,9 @@ import React, { useCallback } from 'react';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { useSelector } from 'react-redux';
+import { ICartState } from '../../redux/modules/cart/types';
+import { IState } from '../../redux';
 
 import {
   Content,
@@ -41,6 +44,8 @@ const Cart: React.FC = () => {
     navigator.goBack();
   }, [navigator]);
 
+  const { cart } = useSelector<IState, ICartState>(state => state.cart);
+
   return (
     <Container>
       <Header>
@@ -56,105 +61,39 @@ const Cart: React.FC = () => {
         </Description>
       </TitleContainer>
       <Content>
-        <Card>
-          <TrashContainer>
-            <MaterialIcon name="delete" size={20} color="#ff3647" />
-          </TrashContainer>
-          <CardInformation>
-            <CardTextContainer>
-              <CardTitle>Titulo do card</CardTitle>
-              <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                blandit quis magna elementum faucibus.
-              </CardText>
-            </CardTextContainer>
-            <CardImage
-              style={{ resizeMode: 'center' }}
-              source={require('../../assets/arroz.jpg')}
-            />
-          </CardInformation>
-          <BuyContainer>
-            <QuantityContainer>
-              <QuantityButton>
-                <BuyButtonText>-</BuyButtonText>
-              </QuantityButton>
-              <QuantityText>1</QuantityText>
-              <QuantityButton>
-                <BuyButtonText>+</BuyButtonText>
-              </QuantityButton>
-            </QuantityContainer>
-            <AddButton enabled={false}>
-              <AddButtonText>Confirmar</AddButtonText>
-              <AddButtonText>R$17,90</AddButtonText>
-            </AddButton>
-          </BuyContainer>
-        </Card>
-        <Card>
-          <TrashContainer>
-            <MaterialIcon name="delete" size={20} color="#ff3647" />
-          </TrashContainer>
-          <CardInformation>
-            <CardTextContainer>
-              <CardTitle>Titulo do card</CardTitle>
-              <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                blandit quis magna elementum faucibus.
-              </CardText>
-            </CardTextContainer>
-            <CardImage
-              style={{ resizeMode: 'center' }}
-              source={require('../../assets/arroz.jpg')}
-            />
-          </CardInformation>
-          <BuyContainer>
-            <QuantityContainer>
-              <QuantityButton>
-                <BuyButtonText>-</BuyButtonText>
-              </QuantityButton>
-              <QuantityText>1</QuantityText>
-              <QuantityButton>
-                <BuyButtonText>+</BuyButtonText>
-              </QuantityButton>
-            </QuantityContainer>
-            <AddButton enabled={false}>
-              <AddButtonText>Confirmar</AddButtonText>
-              <AddButtonText>R$17,90</AddButtonText>
-            </AddButton>
-          </BuyContainer>
-        </Card>
-        <Card>
-          <TrashContainer>
-            <MaterialIcon name="delete" size={20} color="#ff3647" />
-          </TrashContainer>
-          <CardInformation>
-            <CardTextContainer>
-              <CardTitle>Titulo do card</CardTitle>
-              <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                blandit quis magna elementum faucibus.
-              </CardText>
-            </CardTextContainer>
-            <CardImage
-              style={{ resizeMode: 'center' }}
-              source={require('../../assets/arroz.jpg')}
-            />
-          </CardInformation>
-          <BuyContainer>
-            <QuantityContainer>
-              <QuantityButton>
-                <BuyButtonText>-</BuyButtonText>
-              </QuantityButton>
-              <QuantityText>1</QuantityText>
-              <QuantityButton>
-                <BuyButtonText>+</BuyButtonText>
-              </QuantityButton>
-            </QuantityContainer>
-            <AddButton enabled={false}>
-              <AddButtonText>Confirmar</AddButtonText>
-              <AddButtonText>R$17,90</AddButtonText>
-            </AddButton>
-          </BuyContainer>
-        </Card>
+        {cart.cart_item &&
+          cart.cart_item.map(item => (
+            <Card key={item.id}>
+              <TrashContainer>
+                <MaterialIcon name="delete" size={20} color="#ff3647" />
+              </TrashContainer>
+              <CardInformation>
+                <CardTextContainer>
+                  <CardTitle>{item.product.name}</CardTitle>
+                  <CardText>{item.product.short_description}</CardText>
+                </CardTextContainer>
+                <CardImage
+                  style={{ resizeMode: 'center' }}
+                  source={require('../../assets/arroz.jpg')}
+                />
+              </CardInformation>
+              <BuyContainer>
+                <QuantityContainer>
+                  <QuantityButton>
+                    <BuyButtonText>-</BuyButtonText>
+                  </QuantityButton>
+                  <QuantityText>{item.quantity}</QuantityText>
+                  <QuantityButton>
+                    <BuyButtonText>+</BuyButtonText>
+                  </QuantityButton>
+                </QuantityContainer>
+                <AddButton enabled={false}>
+                  <AddButtonText>Confirmar</AddButtonText>
+                  <AddButtonText>R$17,90</AddButtonText>
+                </AddButton>
+              </BuyContainer>
+            </Card>
+          ))}
         <TotalContainer>
           <TotalText>Total:</TotalText>
           <TotalValue>R$300,50</TotalValue>

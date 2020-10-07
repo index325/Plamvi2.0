@@ -33,30 +33,6 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
         break;
       }
 
-      case ActionTypes.loadUser: {
-        let storagedUser;
-        AsyncStorage.getItem('Plamvi:User').then(value => {
-          storagedUser = value;
-        });
-
-        if (storagedUser) {
-          const user = JSON.parse(storagedUser);
-
-          draft.user = user;
-        }
-
-        let storagedToken;
-        AsyncStorage.getItem('Plamvi:Token').then(value => {
-          storagedToken = value;
-        });
-
-        if (storagedToken) {
-          draft.token = storagedToken;
-        }
-
-        break;
-      }
-
       default: {
         return draft;
       }

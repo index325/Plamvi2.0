@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
+import { Alert } from 'react-native';
 import { IState } from '../redux';
 import { alertReset } from '../redux/modules/alerts/actions';
 import { IAlertState } from '../redux/modules/alerts/types';
+import { loadUser } from '../redux/modules/auth/actions';
 import { IAuthState } from '../redux/modules/auth/types';
 
 import AppRoutes from './app.routes';
@@ -17,10 +19,19 @@ const Routes = () => {
 
   useEffect(() => {
     if (message.isDialog) {
-      Alert.alert(message.message);
+      showMessage({
+        message: 'Nova mensagem',
+        description: message.message,
+        type: message.messageType,
+        floating: true,
+      });
       dispatch(alertReset());
     }
   }, [message, dispatch]);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
 
   return user ? <AppRoutes /> : <AuthRoutes />;
 };
