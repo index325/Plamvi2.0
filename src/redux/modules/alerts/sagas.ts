@@ -1,6 +1,11 @@
 import { all, takeLatest, put } from 'redux-saga/effects';
 
-import { alertSuccess, alertFailure, alertRequest } from './actions';
+import {
+  alertSuccess,
+  alertFailure,
+  alertRequest,
+  alertReset,
+} from './actions';
 import { ActionTypes } from './types';
 
 type AlertRequest = ReturnType<typeof alertRequest>;
@@ -16,6 +21,7 @@ function* auth({ payload }: AlertRequest) {
         messageType,
       }),
     );
+    yield put(alertReset());
   } else {
     yield put(
       alertFailure({
@@ -24,6 +30,7 @@ function* auth({ payload }: AlertRequest) {
         messageType,
       }),
     );
+    yield put(alertReset());
   }
 }
 

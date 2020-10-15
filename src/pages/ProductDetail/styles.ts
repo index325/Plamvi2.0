@@ -150,14 +150,14 @@ export const RelatedProducts = styled.ScrollView`
 
 export const RelatedProduct = styled.TouchableOpacity`
   background-color: #fff;
-  border-width: 2;
+  border-width: 2px;
   border-color: #eee;
-  min-height: 220;
-  width: 220;
-  border-radius: 8;
-  padding-top: 20;
-  padding-bottom: 16;
-  margin-right: 8;
+  min-height: 220px;
+  width: 220px;
+  border-radius: 8px;
+  padding-top: 20px;
+  padding-bottom: 16px;
+  margin-right: 8px;
   align-items: center;
   justify-content: space-between;
   text-align: center;

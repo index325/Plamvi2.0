@@ -5,7 +5,7 @@ import { IAlertState, ActionTypes } from './types';
 const INITIAL_STATE: IAlertState = {
   message: '',
   isDialog: false,
-  messageType: '',
+  messageType: undefined,
 };
 
 const auth: Reducer<IAlertState> = (state = INITIAL_STATE, action) => {
@@ -34,7 +34,7 @@ const auth: Reducer<IAlertState> = (state = INITIAL_STATE, action) => {
       case ActionTypes.alertReset: {
         draft.message = '';
         draft.isDialog = false;
-        draft.messageType = '';
+        draft.messageType = undefined;
 
         break;
       }

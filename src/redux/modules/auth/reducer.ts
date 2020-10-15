@@ -24,35 +24,11 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
       }
 
       case ActionTypes.logout: {
-        draft.user = {} as IUser;
+        draft.user = null;
         draft.token = '';
 
         AsyncStorage.removeItem('Plamvi:User');
         AsyncStorage.removeItem('Plamvi:Token');
-
-        break;
-      }
-
-      case ActionTypes.loadUser: {
-        let storagedUser;
-        AsyncStorage.getItem('Plamvi:User').then(value => {
-          storagedUser = value;
-        });
-
-        if (storagedUser) {
-          const user = JSON.parse(storagedUser);
-
-          draft.user = user;
-        }
-
-        let storagedToken;
-        AsyncStorage.getItem('Plamvi:Token').then(value => {
-          storagedToken = value;
-        });
-
-        if (storagedToken) {
-          draft.token = storagedToken;
-        }
 
         break;
       }

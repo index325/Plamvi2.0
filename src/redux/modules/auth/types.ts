@@ -13,7 +13,7 @@ export interface IUser {
 }
 
 export interface IAuthState {
-  user: IUser;
+  user: IUser | null;
   token: string;
 }
 

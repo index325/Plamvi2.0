@@ -1,6 +1,7 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import { AxiosResponse } from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 import { authRequest, authSuccess } from './actions';
 import { alertRequest } from '../alerts/actions';
 import api from '../../../services/api';
@@ -26,11 +27,29 @@ function* auth({ payload }: AuthRequest) {
     yield put(
       alertRequest({
         message: error.response.data.message,
-        messageType: 'error',
+        messageType: 'danger',
         isDialog: true,
       }),
     );
   }
 }
 
-export default all([takeLatest(ActionTypes.authRequest, auth)]);
+function* load() {
+  let user = yield AsyncStorage.getItem('Plamvi:User');
+
+  const token = yield AsyncStorage.getItem('Plamvi:Token');
+
+  user = JSON.parse(user);
+
+  yield put(
+    authSuccess({
+      user,
+      token,
+    }),
+  );
+}
+
+export default all([
+  takeLatest(ActionTypes.authRequest, auth),
+  takeLatest(ActionTypes.loadUser, load),
+]);
