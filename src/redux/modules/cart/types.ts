@@ -25,6 +25,11 @@ export interface IItemUpdateQuantity {
   quantity: number;
 }
 
+export interface ILoadItem {
+  token: string;
+  customer_id: string;
+}
+
 export interface ICartState {
   cart: ICart;
 }

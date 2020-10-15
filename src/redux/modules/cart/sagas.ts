@@ -72,6 +72,13 @@ function* remove({ payload }: CartRemove) {
     );
 
     yield put(cartSaveDraft(cartResponse.data));
+    yield put(
+      alertRequest({
+        message: 'Produto removido com sucesso do carrinho',
+        messageType: 'success',
+        isDialog: true,
+      }),
+    );
   } catch (error) {
     yield put(
       alertRequest({
@@ -101,6 +108,13 @@ function* updateQuantity({ payload }: CartUpdateQuantity) {
     );
 
     yield put(cartSaveDraft(cartResponse.data));
+    yield put(
+      alertRequest({
+        message: 'Quantidade do produto atualizada com sucesso',
+        messageType: 'success',
+        isDialog: true,
+      }),
+    );
   } catch (error) {
     yield put(
       alertRequest({
@@ -113,17 +127,21 @@ function* updateQuantity({ payload }: CartUpdateQuantity) {
 }
 
 function* load({ payload }: CartLoad) {
-  const { token } = payload;
+  const { token, customer_id } = payload;
 
   try {
     const cartResponse: AxiosResponse<ICart> = yield call(() =>
-      api.get('carts/verify', {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: '*/*',
-          Authorization: `Bearer ${token}`,
+      api.post(
+        'carts/verify',
+        { customer_id },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: '*/*',
+            Authorization: `Bearer ${token}`,
+          },
         },
-      }),
+      ),
     );
 
     yield put(cartSaveDraft(cartResponse.data));

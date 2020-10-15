@@ -118,7 +118,7 @@ export const QuantityText = styled.Text`
 export const AddButton = styled(RectButton)`
   background-color: #ff3647;
   height: 48px;
-  width: 60%;
+  width: 100%;
   border-radius: 8px;
   flex-direction: row;
   align-items: center;

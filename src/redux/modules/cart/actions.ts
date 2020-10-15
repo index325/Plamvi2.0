@@ -4,6 +4,7 @@ import {
   IItemAdd,
   IItemRemove,
   IItemUpdateQuantity,
+  ILoadItem,
 } from './types';
 
 export function cartAddItem(itemAdd: IItemAdd) {
@@ -47,11 +48,12 @@ export function cartSaveDraft(cart: ICart) {
   };
 }
 
-export function cartLoadItems(token: string) {
+export function cartLoadItems({ token, customer_id }: ILoadItem) {
   return {
     type: ActionTypes.cartLoadItems,
     payload: {
       token,
+      customer_id,
     },
   };
 }

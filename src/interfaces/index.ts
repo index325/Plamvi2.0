@@ -34,7 +34,7 @@ export interface ICart {
 
 export interface ICartItem {
   id: string;
-  quantity: string;
+  quantity: number;
   product_id: string;
   cart_id: string;
   product: IProduct;

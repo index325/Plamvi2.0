@@ -27,7 +27,7 @@ function* auth({ payload }: AuthRequest) {
     yield put(
       alertRequest({
         message: error.response.data.message,
-        messageType: 'error',
+        messageType: 'danger',
         isDialog: true,
       }),
     );

@@ -1,11 +1,7 @@
 import { RectButton } from 'react-native-gesture-handler';
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 
 import { shade } from 'polished';
-
-interface IButtonProps {
-  enabled: boolean;
-}
 
 export const Container = styled.ScrollView`
   padding: 24px;
@@ -119,19 +115,14 @@ export const QuantityText = styled.Text`
   font-size: 18px;
 `;
 
-export const AddButton = styled(RectButton)<IButtonProps>`
+export const AddButton = styled(RectButton)`
   background-color: #ff3647;
   height: 48px;
-  width: 60%;
+  width: 45%;
   border-radius: 8px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  ${props =>
-    !props.enabled &&
-    css`
-      background-color: ${shade(0.1, '#d3d3d3')};
-    `}
 `;
 
 export const AddButtonText = styled.Text`

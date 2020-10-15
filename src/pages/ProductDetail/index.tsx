@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, Route } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
@@ -39,7 +39,11 @@ import {
   RelatedProductPrice,
 } from './styles';
 
-const ProductDetail: React.FC = ({ route }: any) => {
+interface IProps {
+  route: any;
+}
+
+const ProductDetail: React.FC<IProps> = ({ route }) => {
   const navigator = useNavigation();
   const dispatch = useDispatch();
 

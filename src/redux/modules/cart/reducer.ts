@@ -1,6 +1,5 @@
 import { Reducer } from 'redux';
 import produce from 'immer';
-// import AsyncStorage from '@react-native-community/async-storage';
 import { ActionTypes, ICartState } from './types';
 import { ICart } from '../../../interfaces';
 

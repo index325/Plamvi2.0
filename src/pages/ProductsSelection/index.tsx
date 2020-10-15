@@ -111,19 +111,10 @@ const ProductsSelection: React.FC = () => {
                   />
                 </CardInformation>
                 <BuyContainer>
-                  <QuantityContainer>
-                    <QuantityButton>
-                      <BuyButtonText>-</BuyButtonText>
-                    </QuantityButton>
-                    <QuantityText>1</QuantityText>
-                    <QuantityButton>
-                      <BuyButtonText>+</BuyButtonText>
-                    </QuantityButton>
-                  </QuantityContainer>
                   <AddButton
                     onPress={() => handleAddProductToCart(product.id, 1)}
                   >
-                    <AddButtonText>Adicionar</AddButtonText>
+                    <AddButtonText>Adicionar 1 un.</AddButtonText>
                     <AddButtonText>{formatValue(product.price)}</AddButtonText>
                   </AddButton>
                 </BuyContainer>

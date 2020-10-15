@@ -3,10 +3,11 @@ import React, { useCallback } from 'react';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ICartState } from '../../redux/modules/cart/types';
 import { IState } from '../../redux';
+import ChangeQuantityModal from '../../components/ChangeQuantityModal';
+import { cartRemoveItem } from '../../redux/modules/cart/actions';
 
 import {
   Content,
@@ -16,35 +17,41 @@ import {
   TitleContainer,
   Description,
   Title,
-  BuyButtonText,
   Card,
   CardTextContainer,
   CardText,
   CardTitle,
-  QuantityContainer,
-  QuantityButton,
-  QuantityText,
   CardInformation,
   CardImage,
   AddButton,
   AddButtonText,
   BuyContainer,
-  TrashContainer,
   Button,
   ButtonText,
   TotalContainer,
   TotalText,
   TotalValue,
 } from './styles';
+import { IAuthState } from '../../redux/modules/auth/types';
+import formatValue from '../../utils/formatValue';
 
 const Cart: React.FC = () => {
   const navigator = useNavigation();
+  const dispatch = useDispatch();
 
   const handleGoBack = useCallback(() => {
     navigator.goBack();
   }, [navigator]);
 
   const { cart } = useSelector<IState, ICartState>(state => state.cart);
+  const { token } = useSelector<IState, IAuthState>(state => state.auth);
+
+  const handleDeleteCartItem = useCallback(
+    (id: string) => {
+      dispatch(cartRemoveItem({ cart_item_id: id, token }));
+    },
+    [dispatch, token],
+  );
 
   return (
     <Container>
@@ -64,9 +71,6 @@ const Cart: React.FC = () => {
         {cart.cart_item &&
           cart.cart_item.map(item => (
             <Card key={item.id}>
-              <TrashContainer>
-                <MaterialIcon name="delete" size={20} color="#ff3647" />
-              </TrashContainer>
               <CardInformation>
                 <CardTextContainer>
                   <CardTitle>{item.product.name}</CardTitle>
@@ -78,18 +82,10 @@ const Cart: React.FC = () => {
                 />
               </CardInformation>
               <BuyContainer>
-                <QuantityContainer>
-                  <QuantityButton>
-                    <BuyButtonText>-</BuyButtonText>
-                  </QuantityButton>
-                  <QuantityText>{item.quantity}</QuantityText>
-                  <QuantityButton>
-                    <BuyButtonText>+</BuyButtonText>
-                  </QuantityButton>
-                </QuantityContainer>
-                <AddButton enabled={false}>
-                  <AddButtonText>Confirmar</AddButtonText>
-                  <AddButtonText>R$17,90</AddButtonText>
+                <ChangeQuantityModal token={token} item={item} />
+
+                <AddButton onPress={() => handleDeleteCartItem(item.id)}>
+                  <AddButtonText>Remover</AddButtonText>
                 </AddButton>
               </BuyContainer>
             </Card>
