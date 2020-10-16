@@ -5,6 +5,7 @@ import AntIcon from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
 import { IProduct } from '../../interfaces';
 import { IState } from '../../redux';
+import { alertRequest } from '../../redux/modules/alerts/actions';
 import { IAuthState } from '../../redux/modules/auth/types';
 import { cartAddItem } from '../../redux/modules/cart/actions';
 import api from '../../services/api';
@@ -58,14 +59,27 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
   useEffect(() => {
     const { id } = route.params;
 
-    async function getProducts() {
-      const response = await api.get<IProduct>(`/products/detail/${id}`);
-
-      setProduct(response.data);
-    }
-
-    getProducts();
-  }, [route]);
+    api
+      .get<IProduct>(`/products/detail/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: '*/*',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        setProduct(response.data);
+      })
+      .catch(error => {
+        dispatch(
+          alertRequest({
+            message: error.response.data.message,
+            messageType: 'danger',
+            isDialog: true,
+          }),
+        );
+      });
+  }, [route, dispatch, token]);
 
   const addQuantity = useCallback(() => {
     setQuantity(quantity + 1);

@@ -19,6 +19,9 @@ export const Content = styled.View`
 export const ContentTitle = styled.Text`
   font-size: 20px;
   margin-bottom: 12px;
+  font-family: 'Roboto-Bold';
+
+  color: #ff3647;
 `;
 
 export const BuyContainer = styled.View`
@@ -59,6 +62,7 @@ export const AddButton = styled(RectButton)<IButtonProps>`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-left: 16px;
   ${props =>
     !props.enabled &&
     css`

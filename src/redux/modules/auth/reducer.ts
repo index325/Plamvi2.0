@@ -1,7 +1,8 @@
 import { Reducer } from 'redux';
 import produce from 'immer';
 import AsyncStorage from '@react-native-community/async-storage';
-import { IUser, IAuthState, ActionTypes } from './types';
+import { IAuthState, ActionTypes } from './types';
+import { IUser } from '../../../interfaces';
 
 const INITIAL_STATE: IAuthState = {
   token: '',

@@ -1,6 +1,9 @@
 export interface IUser {
-  email: string;
+  id: string;
   name: string;
+  email: string;
+  city: string;
+  state: string;
 }
 
 export interface IClient {
@@ -30,6 +33,7 @@ export interface ICart {
   opened: boolean;
   user_id: string;
   cart_item: ICartItem[];
+  total: number;
 }
 
 export interface ICartItem {

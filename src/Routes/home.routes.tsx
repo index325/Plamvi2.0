@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProductSelection from './Product/index.routes';
 import Cart from './Cart/index.routes';
+import Config from './Config/index.routes';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -13,6 +14,8 @@ export default function DashboardRoutes() {
       backBehavior="none"
       tabBarOptions={{
         inactiveTintColor: 'gray',
+        showLabel: false,
+        keyboardHidesTabBar: true,
       }}
     >
       <Screen
@@ -38,6 +41,15 @@ export default function DashboardRoutes() {
               size={32}
               color={focused ? '#ff3647' : 'grey'}
             />
+          ),
+        }}
+      />
+      <Screen
+        name="Config"
+        component={Config}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Icon name="cog" size={32} color={focused ? '#ff3647' : 'grey'} />
           ),
         }}
       />
