@@ -34,7 +34,7 @@ const ModalContent: React.FC<IProps> = ({
 }) => {
   return (
     <Content>
-      <ContentTitle>Hi 👋!</ContentTitle>
+      <ContentTitle>{item.product.name}</ContentTitle>
       <BuyContainer>
         <QuantityContainer>
           <TouchableWithoutFeedback>
@@ -57,11 +57,7 @@ const ModalContent: React.FC<IProps> = ({
           </AddButtonText>
         </AddButton>
       </BuyContainer>
-      <Button
-        testID="close-button"
-        onPress={() => setModalVisible(false)}
-        title="Close"
-      />
+      {/* <Button onPress={() => setModalVisible(false)} title="Close" /> */}
     </Content>
   );
 };

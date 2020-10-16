@@ -12,7 +12,7 @@ interface IProps {
   item: ICartItem;
 }
 
-const ModalTester: React.FC<IProps> = ({ token, item }) => {
+const ChangeQuantityModal: React.FC<IProps> = ({ token, item }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [quantity, setQuantity] = useState(item.quantity);
   const dispatch = useDispatch();
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(ModalTester);
+export default memo(ChangeQuantityModal);

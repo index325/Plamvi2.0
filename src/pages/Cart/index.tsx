@@ -23,14 +23,17 @@ import {
   CardTitle,
   CardInformation,
   CardImage,
-  AddButton,
-  AddButtonText,
-  BuyContainer,
+  RemoveButton,
+  RemoveButtonText,
+  ActionsContainer,
   Button,
   ButtonText,
   TotalContainer,
   TotalText,
   TotalValue,
+  QuantityAndPriceContainer,
+  QuantityText,
+  PriceText,
 } from './styles';
 import { IAuthState } from '../../redux/modules/auth/types';
 import formatValue from '../../utils/formatValue';
@@ -70,29 +73,36 @@ const Cart: React.FC = () => {
       <Content>
         {cart.cart_item &&
           cart.cart_item.map(item => (
-            <Card key={item.id}>
-              <CardInformation>
-                <CardTextContainer>
-                  <CardTitle>{item.product.name}</CardTitle>
-                  <CardText>{item.product.short_description}</CardText>
-                </CardTextContainer>
-                <CardImage
-                  style={{ resizeMode: 'center' }}
-                  source={require('../../assets/arroz.jpg')}
-                />
-              </CardInformation>
-              <BuyContainer>
-                <ChangeQuantityModal token={token} item={item} />
-
-                <AddButton onPress={() => handleDeleteCartItem(item.id)}>
-                  <AddButtonText>Remover</AddButtonText>
-                </AddButton>
-              </BuyContainer>
-            </Card>
+            <>
+              <QuantityAndPriceContainer>
+                <QuantityText>{item.quantity}x</QuantityText>
+                <PriceText>
+                  {formatValue(item.quantity * item.product.price)}
+                </PriceText>
+              </QuantityAndPriceContainer>
+              <Card key={item.id}>
+                <CardInformation>
+                  <CardTextContainer>
+                    <CardTitle>{item.product.name}</CardTitle>
+                    <CardText>{item.product.short_description}</CardText>
+                  </CardTextContainer>
+                  <CardImage
+                    style={{ resizeMode: 'center' }}
+                    source={require('../../assets/arroz.jpg')}
+                  />
+                </CardInformation>
+                <ActionsContainer>
+                  <ChangeQuantityModal token={token} item={item} />
+                  <RemoveButton onPress={() => handleDeleteCartItem(item.id)}>
+                    <RemoveButtonText>Remover</RemoveButtonText>
+                  </RemoveButton>
+                </ActionsContainer>
+              </Card>
+            </>
           ))}
         <TotalContainer>
           <TotalText>Total:</TotalText>
-          <TotalValue>R$300,50</TotalValue>
+          <TotalValue>{formatValue(cart.total)}</TotalValue>
         </TotalContainer>
         <Button>
           <ButtonText>Fechar Carrinho</ButtonText>

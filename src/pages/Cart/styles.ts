@@ -60,8 +60,9 @@ export const BuyButtonText = styled.Text`
 export const Card = styled.View`
   padding: 16px;
   background-color: #fff;
-  border-radius: 16px;
   margin-bottom: 16px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 `;
 
 export const CardText = styled.Text`
@@ -100,12 +101,13 @@ export const CardButtons = styled.View`
   flex-direction: row;
 `;
 
-export const QuantityContainer = styled.View`
-  width: 104px;
+export const QuantityAndPriceContainer = styled.View`
+  background-color: #ff3647;
   flex-direction: row;
-  border: 1px solid black;
-  border-radius: 16px;
-  justify-content: center;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  justify-content: space-between;
+  padding: 0px 16px 0px 16px;
 `;
 
 export const QuantityButton = styled(RectButton)``;
@@ -113,9 +115,16 @@ export const QuantityButton = styled(RectButton)``;
 export const QuantityText = styled.Text`
   padding: 8px;
   font-size: 18px;
+  color: #fff;
 `;
 
-export const AddButton = styled(RectButton)`
+export const PriceText = styled.Text`
+  padding: 8px;
+  font-size: 18px;
+  color: #fff;
+`;
+
+export const RemoveButton = styled(RectButton)`
   background-color: #ff3647;
   height: 48px;
   width: 45%;
@@ -125,7 +134,7 @@ export const AddButton = styled(RectButton)`
   justify-content: space-between;
 `;
 
-export const AddButtonText = styled.Text`
+export const RemoveButtonText = styled.Text`
   padding: 8px;
   color: #fff;
 
@@ -135,7 +144,7 @@ export const AddButtonText = styled.Text`
   font-family: 'Roboto-Bold';
 `;
 
-export const BuyContainer = styled.View`
+export const ActionsContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

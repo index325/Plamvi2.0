@@ -87,7 +87,7 @@ const SignIn: React.FC = () => {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      enabled
+      // enabled
     >
       <ScrollView
         contentContainerStyle={{ flex: 1 }}
