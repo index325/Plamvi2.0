@@ -14,7 +14,7 @@ import { FormHandles } from '@unform/core';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
@@ -32,8 +32,6 @@ import {
   SubmitButtonText,
 } from './styles';
 
-import { IAuthState } from '../../redux/modules/auth/types';
-import { IState } from '../../redux';
 import { alertRequest } from '../../redux/modules/alerts/actions';
 
 interface RecoverPasswordFormData {

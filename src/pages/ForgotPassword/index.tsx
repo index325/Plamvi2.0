@@ -109,7 +109,7 @@ const RecoverPassword: React.FC = () => {
         );
       }
     },
-    [dispatch],
+    [dispatch, navigator],
   );
 
   return (
