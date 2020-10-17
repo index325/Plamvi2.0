@@ -31,6 +31,7 @@ import {
   SubmitButton,
   SubmitButtonText,
 } from './styles';
+import { alertRequest } from '../../redux/modules/alerts/actions';
 
 interface SignUpFormData {
   email: string;
@@ -74,9 +75,13 @@ const SignIn: React.FC = () => {
 
           return;
         }
-        Alert.alert(
-          'Erro no cadastro',
-          'Ocorreu um erro ao fazer cadastro, tente novamente',
+
+        dispatch(
+          alertRequest({
+            message: 'Ocorreu um erro ao fazer login, tente novamente',
+            isDialog: true,
+            messageType: 'danger',
+          }),
         );
       }
     },
@@ -87,7 +92,6 @@ const SignIn: React.FC = () => {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      // enabled
     >
       <ScrollView
         contentContainerStyle={{ flex: 1 }}
@@ -127,15 +131,18 @@ const SignIn: React.FC = () => {
                 icon="lock"
                 secureTextEntry
                 placeholder="Senha"
-                returnKeyType="next"
+                returnKeyType="send"
                 autoCompleteType="password"
                 ref={passwordInputRef}
                 onSubmitEditing={() => {
-                  emailInputRef.current?.focus();
+                  formRef.current?.submitForm();
                 }}
               />
 
-              <ForgotPasswordButton onPress={() => {}} activeOpacity={0.6}>
+              <ForgotPasswordButton
+                onPress={() => navigator.navigate('ForgotPassword')}
+                activeOpacity={0.6}
+              >
                 <ForgotPasswordText>Esqueci minha senha 🤔</ForgotPasswordText>
               </ForgotPasswordButton>
             </FormBody>
