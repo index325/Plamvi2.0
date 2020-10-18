@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   TextInput,
   ScrollView,
-  StatusBar,
   ActivityIndicator,
   StyleSheet,
   View,
@@ -114,7 +113,6 @@ const RecoverPassword: React.FC = () => {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#312e38" />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}

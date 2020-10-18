@@ -1,11 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Platform,
   KeyboardAvoidingView,
   TextInput,
   ScrollView,
+  View,
+  ActivityIndicator,
+  StyleSheet,
 } from 'react-native';
 import * as Yup from 'yup';
 
@@ -41,6 +44,7 @@ const SignIn: React.FC = () => {
   const dispatch = useDispatch();
   const formRef = useRef<FormHandles>(null);
   const navigator = useNavigation();
+  const [loading, setLoading] = useState(false);
 
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
@@ -52,6 +56,7 @@ const SignIn: React.FC = () => {
   const handleSignUp = useCallback(
     async (data: SignUpFormData) => {
       try {
+        setLoading(true);
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -69,6 +74,7 @@ const SignIn: React.FC = () => {
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
+          setLoading(false);
 
           formRef.current?.setErrors(errors);
 
@@ -82,6 +88,7 @@ const SignIn: React.FC = () => {
             messageType: 'danger',
           }),
         );
+        setLoading(false);
       }
     },
     [dispatch],
@@ -96,64 +103,84 @@ const SignIn: React.FC = () => {
         contentContainerStyle={{ flex: 1 }}
         keyboardShouldPersistTaps="handled"
       >
-        <Container>
-          <Header>
-            <GoBackButton onPress={handleGoBack} activeOpacity={0.6}>
-              <AntIcon name="arrowleft" size={20} color="#ff3647" />
-            </GoBackButton>
-          </Header>
-          <TitleContainer>
-            <Title>Que legal te ver de novo.</Title>
-            <Description>
-              Informe as suas credenciais para acessar a sua conta.
-            </Description>
-          </TitleContainer>
-          <SignInForm ref={formRef} onSubmit={handleSignUp}>
-            <FormBody>
-              <Input
-                keyboardType="email-address"
-                autoCorrect={false}
-                autoCapitalize="none"
-                name="email"
-                icon="mail"
-                placeholder="E-mail"
-                returnKeyType="next"
-                ref={emailInputRef}
-                onSubmitEditing={() => {
-                  passwordInputRef.current?.focus();
-                }}
-              />
+        {loading ? (
+          <View style={[styles.container, styles.horizontal]}>
+            <ActivityIndicator size="large" color="#ff3647" />
+          </View>
+        ) : (
+          <Container>
+            <Header>
+              <GoBackButton onPress={handleGoBack} activeOpacity={0.6}>
+                <AntIcon name="arrowleft" size={20} color="#ff3647" />
+              </GoBackButton>
+            </Header>
+            <TitleContainer>
+              <Title>Que legal te ver de novo.</Title>
+              <Description>
+                Informe as suas credenciais para acessar a sua conta.
+              </Description>
+            </TitleContainer>
+            <SignInForm ref={formRef} onSubmit={handleSignUp}>
+              <FormBody>
+                <Input
+                  keyboardType="email-address"
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  name="email"
+                  icon="mail"
+                  placeholder="E-mail"
+                  returnKeyType="next"
+                  ref={emailInputRef}
+                  onSubmitEditing={() => {
+                    passwordInputRef.current?.focus();
+                  }}
+                />
 
-              <Input
-                autoCorrect={false}
-                name="password"
-                icon="lock"
-                secureTextEntry
-                placeholder="Senha"
-                returnKeyType="send"
-                autoCompleteType="password"
-                ref={passwordInputRef}
-                onSubmitEditing={() => {
-                  formRef.current?.submitForm();
-                }}
-              />
+                <Input
+                  autoCorrect={false}
+                  name="password"
+                  icon="lock"
+                  secureTextEntry
+                  placeholder="Senha"
+                  returnKeyType="send"
+                  autoCompleteType="password"
+                  ref={passwordInputRef}
+                  onSubmitEditing={() => {
+                    formRef.current?.submitForm();
+                  }}
+                />
 
-              <ForgotPasswordButton
-                onPress={() => navigator.navigate('ForgotPassword')}
-                activeOpacity={0.6}
-              >
-                <ForgotPasswordText>Esqueci minha senha 🤔</ForgotPasswordText>
-              </ForgotPasswordButton>
-            </FormBody>
+                <ForgotPasswordButton
+                  onPress={() => navigator.navigate('ForgotPassword')}
+                  activeOpacity={0.6}
+                >
+                  <ForgotPasswordText>
+                    Esqueci minha senha 🤔
+                  </ForgotPasswordText>
+                </ForgotPasswordButton>
+              </FormBody>
 
-            <SubmitButton onPress={() => formRef.current?.submitForm()}>
-              <SubmitButtonText>Entrar</SubmitButtonText>
-            </SubmitButton>
-          </SignInForm>
-        </Container>
+              <SubmitButton onPress={() => formRef.current?.submitForm()}>
+                <SubmitButtonText>Entrar</SubmitButtonText>
+              </SubmitButton>
+            </SignInForm>
+          </Container>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+});
 
 export default SignIn;

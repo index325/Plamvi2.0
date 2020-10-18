@@ -38,15 +38,16 @@ function* load() {
   let user = yield AsyncStorage.getItem('Plamvi:User');
 
   const token = yield AsyncStorage.getItem('Plamvi:Token');
+  if (!!token) {
+    user = JSON.parse(user);
 
-  user = JSON.parse(user);
-
-  yield put(
-    authSuccess({
-      user,
-      token,
-    }),
-  );
+    yield put(
+      authSuccess({
+        user,
+        token,
+      }),
+    );
+  }
 }
 
 export default all([

@@ -44,6 +44,7 @@
     "no-param-reassign": "off",
     "consistent-return": "off",
     "no-shadow": "off",
+    "no-extra-boolean-cast": "off",
     "react/jsx-filename-extension": [
       1,
       {
