@@ -151,7 +151,7 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
             source={require('../../assets/arroz.jpg')}
           />
           <RelatedProductText>
-            Teste meu deus do céu que teste grande caralho meu deus do céu o que
+            Teste meu deus do céu que teste grande meu deus do céu o que
             que eu faço agora? jesus
           </RelatedProductText>
           <RelatedProductPrice>R$ 17,90</RelatedProductPrice>
