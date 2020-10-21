@@ -30,7 +30,7 @@ const Routes = () => {
     dispatch(loadUser());
   }, [dispatch]);
 
-  return user ? <AppRoutes /> : <AuthRoutes />;
+  return user?.name ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;
