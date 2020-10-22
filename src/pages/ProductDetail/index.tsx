@@ -114,7 +114,7 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
           source={{ uri: product.image_url }}
         />
         <CardTextContainer>
-          <CardTitle>Informações importantes:</CardTitle>
+          <CardTitle>Informações importanteees:</CardTitle>
           <CardText>{product.description}</CardText>
         </CardTextContainer>
       </CardInformation>

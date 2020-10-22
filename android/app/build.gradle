@@ -163,7 +163,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            resValue "string", "CodePushDeploymentKey", '""'
+            resValue "string", "CodePushDeploymentKey", '"fursFhTvo_lcBDbZA6qlVNlyxK5UfDeA1El7F"'
         }
         releaseStaging {
             matchingFallbacks = ['release']
