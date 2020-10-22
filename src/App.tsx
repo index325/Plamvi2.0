@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import FlashMessage from 'react-native-flash-message';
 import { StatusBar } from 'react-native';
+import codePush from 'react-native-code-push';
 import store from './redux';
 
 import Routes from './Routes';
@@ -27,4 +28,6 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+})(App);

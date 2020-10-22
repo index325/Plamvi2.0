@@ -111,7 +111,7 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
       <CardInformation>
         <CardImage
           style={{ resizeMode: 'center' }}
-          source={require('../../assets/arroz.jpg')}
+          source={{ uri: product.image_url }}
         />
         <CardTextContainer>
           <CardTitle>Informações importantes:</CardTitle>
@@ -139,7 +139,7 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
         </BuyContainer>
       </Content>
 
-      <RelatedProductSection>
+      {/* <RelatedProductSection>
         <RelatedProductSectionText>
           Produtos relacionados:
         </RelatedProductSectionText>
@@ -190,7 +190,7 @@ const ProductDetail: React.FC<IProps> = ({ route }) => {
           <RelatedProductText>Teste? jesus</RelatedProductText>
           <RelatedProductPrice>R$ 17,90</RelatedProductPrice>
         </RelatedProduct>
-      </RelatedProducts>
+      </RelatedProducts> */}
     </Container>
   );
 };

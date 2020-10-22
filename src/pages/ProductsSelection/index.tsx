@@ -107,7 +107,7 @@ const ProductsSelection: React.FC = () => {
                   </CardTextContainer>
                   <CardImage
                     style={{ resizeMode: 'center' }}
-                    source={require('../../assets/arroz.jpg')}
+                    source={{ uri: product.image_url }}
                   />
                 </CardInformation>
                 <BuyContainer>
