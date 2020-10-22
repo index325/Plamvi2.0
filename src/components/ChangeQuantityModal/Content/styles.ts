@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/native';
 import { shade } from 'polished';
 
 interface IButtonProps {
-  enabled: boolean;
+  disabled: boolean;
 }
 
 export const Content = styled.View`
@@ -54,7 +54,7 @@ export const QuantityText = styled.Text`
   font-size: 18px;
 `;
 
-export const AddButton = styled(RectButton)<IButtonProps>`
+export const AddButton = styled.TouchableOpacity<IButtonProps>`
   background-color: #ff3647;
   height: 48px;
   width: 60%;
@@ -64,7 +64,7 @@ export const AddButton = styled(RectButton)<IButtonProps>`
   justify-content: space-between;
   margin-left: 16px;
   ${props =>
-    !props.enabled &&
+    props.disabled &&
     css`
       background-color: ${shade(0.1, '#d3d3d3')};
     `}

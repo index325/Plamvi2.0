@@ -48,10 +48,11 @@ const ModalContent: React.FC<IProps> = ({
             <BuyButtonText>+</BuyButtonText>
           </QuantityButton>
         </QuantityContainer>
-        <AddButton enabled={item.quantity !== quantity}>
-          <AddButtonText onPress={handleSubmitUpdateQuantity}>
-            Confirmar
-          </AddButtonText>
+        <AddButton
+          disabled={item.quantity === quantity}
+          onPress={handleSubmitUpdateQuantity}
+        >
+          <AddButtonText>Confirmar</AddButtonText>
           <AddButtonText>
             {formatValue(item.product.price * quantity)}
           </AddButtonText>
