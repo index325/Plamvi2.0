@@ -88,7 +88,7 @@ const Cart: React.FC = () => {
                   </CardTextContainer>
                   <CardImage
                     style={{ resizeMode: 'center' }}
-                    source={require('../../assets/arroz.jpg')}
+                    source={{ uri: item.product.image_url }}
                   />
                 </CardInformation>
                 <ActionsContainer>
