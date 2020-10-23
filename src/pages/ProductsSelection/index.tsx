@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IProduct } from '../../interfaces';
 import { IState } from '../../redux';
 import { IAuthState } from '../../redux/modules/auth/types';
-import { cartAddItem } from '../../redux/modules/cart/actions';
+import { cartAddItem, cartLoadItems } from '../../redux/modules/cart/actions';
 import { IClientState } from '../../redux/modules/client/types';
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
@@ -45,6 +45,7 @@ const ProductsSelection: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    dispatch(cartLoadItems({ customer_id: client.id, token }));
     async function getProducts() {
       if (token) {
         const response = await api.get<IProduct[]>(

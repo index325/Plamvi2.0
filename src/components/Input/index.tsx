@@ -6,7 +6,7 @@ import React, {
   useImperativeHandle,
   forwardRef,
 } from 'react';
-import { TextInputProps } from 'react-native';
+import { TextInputProps, Text } from 'react-native';
 import { useField } from '@unform/core';
 
 import { Container, TextInput, Icon } from './styles';
@@ -88,6 +88,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
         }}
         {...rest}
       />
+      {!!error && <Text>{error}</Text>}
     </Container>
   );
 };

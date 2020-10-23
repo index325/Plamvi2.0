@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
+import { Text } from 'react-native';
 import { logout } from '../../redux/modules/auth/actions';
 
 import { clientRequest } from '../../redux/modules/client/actions';
@@ -22,6 +23,7 @@ import api from '../../services/api';
 import { IState } from '../../redux';
 import { IAuthState } from '../../redux/modules/auth/types';
 import { IClient } from '../../interfaces';
+import { cartLoadItems } from '../../redux/modules/cart/actions';
 
 const ClientSelection: React.FC = () => {
   const navigation = useNavigation();
@@ -90,6 +92,9 @@ const ClientSelection: React.FC = () => {
               />
             </Card>
           ))}
+        {!clients && (
+          <Text>Não existe nenhum estabelecimento em sua região</Text>
+        )}
       </Content>
     </Container>
   );

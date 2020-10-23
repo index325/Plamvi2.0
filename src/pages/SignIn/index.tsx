@@ -69,12 +69,12 @@ const SignIn: React.FC = () => {
         await schema.validate(data, {
           abortEarly: false,
         });
-
         dispatch(authRequest({ password: data.password, email: data.email }));
+        setLoading(false);
       } catch (err) {
+        setLoading(false);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
-          setLoading(false);
 
           formRef.current?.setErrors(errors);
 
@@ -88,7 +88,6 @@ const SignIn: React.FC = () => {
             messageType: 'danger',
           }),
         );
-        setLoading(false);
       }
     },
     [dispatch],

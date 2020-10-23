@@ -63,13 +63,18 @@ const UpdateUserPassword: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          old_password: Yup.string().required(),
-          new_password: Yup.string().when('old_password', {
-            is: value => !!value.length,
-            then: Yup.string().required('Você precisa inserir a nova senha'),
-            otherwise: Yup.string(),
-          }),
+          old_password: Yup.string()
+            .required()
+            .min(6, 'Mínimo de 6 caracteres'),
+          new_password: Yup.string()
+            .min(6, 'Mínimo de 6 caracteres')
+            .when('old_password', {
+              is: value => !!value.length,
+              then: Yup.string().required('Você precisa inserir a nova senha'),
+              otherwise: Yup.string(),
+            }),
           new_password_confirmation: Yup.string()
+            .min(6, 'Mínimo de 6 caracteres')
             .when('old_password', {
               is: value => !!value.length,
               then: Yup.string().required(
