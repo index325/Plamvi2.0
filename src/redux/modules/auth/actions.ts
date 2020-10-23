@@ -6,6 +6,7 @@ export function authRequest(authState: IAuthRequest) {
     payload: {
       email: authState.email,
       password: authState.password,
+      loading: authState.loading,
     },
   };
 }
@@ -29,5 +30,14 @@ export function logout() {
 export function loadUser() {
   return {
     type: ActionTypes.loadUser,
+  };
+}
+
+export function setLoading(loading: boolean) {
+  return {
+    type: ActionTypes.setLoading,
+    payload: {
+      loading,
+    },
   };
 }

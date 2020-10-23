@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
+import SadFace from '../../components/SadFace';
 import { IProduct } from '../../interfaces';
 import { IState } from '../../redux';
 import { IAuthState } from '../../redux/modules/auth/types';
@@ -19,14 +20,10 @@ import {
   TitleContainer,
   Description,
   Title,
-  BuyButtonText,
   Card,
   CardTextContainer,
   CardText,
   CardTitle,
-  QuantityContainer,
-  QuantityButton,
-  QuantityText,
   CardInformation,
   CardImage,
   AddButton,
@@ -59,13 +56,16 @@ const ProductsSelection: React.FC = () => {
           },
         );
 
-        setProducts(response.data);
+        if (response.data) {
+          setProducts(response.data);
+        }
+
         setLoading(false);
       }
     }
 
     getProducts();
-  }, [token, client]);
+  }, [token, client, dispatch]);
 
   const handleAddProductToCart = useCallback(
     (product_id, quantity) => {
@@ -122,6 +122,9 @@ const ProductsSelection: React.FC = () => {
               </Card>
             );
           })}
+        {!products[0] && (
+          <SadFace text="Que pena... Não encontramos nenhum produto para este estabelecimento" />
+        )}
       </Content>
     </Container>
   );

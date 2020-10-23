@@ -7,6 +7,7 @@ import { IUser } from '../../../interfaces';
 const INITIAL_STATE: IAuthState = {
   token: '',
   user: {} as IUser,
+  loading: false,
 };
 
 const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
@@ -17,6 +18,7 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
 
         draft.user = user;
         draft.token = token;
+        draft.loading = false;
 
         AsyncStorage.setItem('Plamvi:User', JSON.stringify(user));
         AsyncStorage.setItem('Plamvi:Token', token);
@@ -31,6 +33,13 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
         AsyncStorage.removeItem('Plamvi:User');
         AsyncStorage.removeItem('Plamvi:Token');
 
+        break;
+      }
+
+      case ActionTypes.setLoading: {
+        const { loading } = action.payload;
+
+        draft.loading = loading;
         break;
       }
 

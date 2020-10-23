@@ -4,6 +4,7 @@ import React, { useCallback } from 'react';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useDispatch, useSelector } from 'react-redux';
+import { View } from 'react-native';
 import { ICartState } from '../../redux/modules/cart/types';
 import { IState } from '../../redux';
 import ChangeQuantityModal from '../../components/ChangeQuantityModal';
@@ -73,14 +74,14 @@ const Cart: React.FC = () => {
       <Content>
         {cart.cart_item &&
           cart.cart_item.map(item => (
-            <>
+            <View key={item.id}>
               <QuantityAndPriceContainer>
                 <QuantityText>{item.quantity}x</QuantityText>
                 <PriceText>
                   {formatValue(item.quantity * item.product.price)}
                 </PriceText>
               </QuantityAndPriceContainer>
-              <Card key={item.id}>
+              <Card>
                 <CardInformation>
                   <CardTextContainer>
                     <CardTitle>{item.product.name}</CardTitle>
@@ -98,7 +99,7 @@ const Cart: React.FC = () => {
                   </RemoveButton>
                 </ActionsContainer>
               </Card>
-            </>
+            </View>
           ))}
         <TotalContainer>
           <TotalText>Total:</TotalText>

@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
-import { Text } from 'react-native';
+import { View } from 'react-native';
 import { logout } from '../../redux/modules/auth/actions';
+import SadFace from '../../components/SadFace';
 
 import { clientRequest } from '../../redux/modules/client/actions';
 
@@ -23,7 +24,6 @@ import api from '../../services/api';
 import { IState } from '../../redux';
 import { IAuthState } from '../../redux/modules/auth/types';
 import { IClient } from '../../interfaces';
-import { cartLoadItems } from '../../redux/modules/cart/actions';
 
 const ClientSelection: React.FC = () => {
   const navigation = useNavigation();
@@ -92,8 +92,10 @@ const ClientSelection: React.FC = () => {
               />
             </Card>
           ))}
-        {!clients && (
-          <Text>Não existe nenhum estabelecimento em sua região</Text>
+        {!clients[0] ? (
+          <SadFace text="Que pena... Não encontramos nenhum estabelecimento na sua região" />
+        ) : (
+          <View />
         )}
       </Content>
     </Container>
