@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Platform,
   KeyboardAvoidingView,
   TextInput,
   Alert,
   ScrollView,
+  StyleSheet,
 } from 'react-native';
 import * as Yup from 'yup';
 
@@ -14,6 +15,8 @@ import { FormHandles } from '@unform/core';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
 
+import axios from 'axios';
+import Spinner from 'react-native-loading-spinner-overlay';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 
@@ -32,6 +35,8 @@ import {
 } from './styles';
 
 import PlaceInput from '../../components/PlaceInput';
+import SelectState from '../../components/Select/State';
+import SelectCity from '../../components/Select/City';
 
 interface SignUpFormData {
   name: string;
@@ -39,6 +44,22 @@ interface SignUpFormData {
   password: string;
   state: string;
   city: string;
+}
+
+interface IBGEUFResponse {
+  nome: string;
+  sigla: string;
+  id: number;
+}
+
+interface IIBGEResponse {
+  value: string;
+  label: string;
+  key: string | number;
+}
+
+interface IBGECityResponse {
+  nome: string;
 }
 
 const SignUp: React.FC = () => {
@@ -50,6 +71,56 @@ const SignUp: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null);
   const ufInputRef = useRef<TextInput>(null);
   const cityInputRef = useRef<TextInput>(null);
+  const [states, setStates] = useState<IIBGEResponse[]>([]);
+  const [cities, setCities] = useState<IIBGEResponse[]>([]);
+  const [selectedState, setSelectedState] = useState<any>();
+  const [selectedCity, setSelectedCity] = useState<any>();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get<IBGEUFResponse[]>(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados',
+      )
+      .then(response => {
+        const ufInitials = response.data.map(uf => ({
+          value: uf.sigla,
+          label: uf.nome,
+          key: uf.id,
+        }));
+        setLoading(false);
+        setStates(ufInitials);
+        console.log(ufInitials);
+      })
+      .catch(error => {
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    setCities([]);
+    console.log(selectedState);
+    axios
+      .get<IBGECityResponse[]>(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`,
+      )
+      .then(response => {
+        const cityNames = response.data.map(city => ({
+          value: city.nome,
+          label: city.nome,
+          key: city.nome,
+        }));
+        setCities(cityNames);
+        setLoading(false);
+        console.log(cityNames);
+      })
+      .catch(error => {
+        setLoading(false);
+        console.log(error.status);
+      });
+  }, [selectedState]);
 
   const handleGoBack = useCallback(() => {
     navigator.goBack();
@@ -69,6 +140,8 @@ const SignUp: React.FC = () => {
           state: Yup.string().required('O estado é obrigatório'),
           city: Yup.string().required('A cidade é obrigatória'),
         });
+
+        console.log(data);
 
         await schema.validate(data, {
           abortEarly: false,
@@ -109,6 +182,11 @@ const SignUp: React.FC = () => {
         contentContainerStyle={{ flex: 1 }}
         keyboardShouldPersistTaps="handled"
       >
+        <Spinner
+          visible={loading}
+          textContent="Carregando..."
+          textStyle={styles.spinnerTextStyle}
+        />
         <Container>
           <Header>
             <GoBackButton onPress={handleGoBack} activeOpacity={0.6}>
@@ -159,29 +237,16 @@ const SignUp: React.FC = () => {
                 emailInputRef.current?.focus();
               }}
             />
-
             <PlaceInputContainer>
-              <PlaceInput
-                autoCorrect={false}
+              <SelectState
                 name="state"
-                icon="map"
-                placeholder="UF"
-                returnKeyType="next"
-                ref={ufInputRef}
-                onSubmitEditing={() => {
-                  cityInputRef.current?.focus();
-                }}
+                items={states}
+                setSelectedState={setSelectedState}
               />
-              <PlaceInput
-                autoCorrect={false}
+              <SelectCity
                 name="city"
-                icon="home"
-                placeholder="Cidade"
-                returnKeyType="next"
-                ref={cityInputRef}
-                onSubmitEditing={() => {
-                  formRef.current?.submitForm();
-                }}
+                items={cities}
+                setSelectedCity={setSelectedCity}
               />
             </PlaceInputContainer>
 
@@ -194,5 +259,20 @@ const SignUp: React.FC = () => {
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+  spinnerTextStyle: {
+    color: '#ff3647',
+  },
+});
 
 export default SignUp;

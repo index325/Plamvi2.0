@@ -16,6 +16,7 @@ import { FormHandles } from '@unform/core';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import Spinner from 'react-native-loading-spinner-overlay';
+import axios from 'axios';
 import { authRequest } from '../../redux/modules/auth/actions';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
