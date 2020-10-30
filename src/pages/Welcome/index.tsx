@@ -1,6 +1,8 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
+import OnboardingScreen from '../../components/OnboardingScreen';
 import {
   Button,
   ButtonsContainer,
@@ -13,6 +15,16 @@ import {
 
 const WelcomeScreen: React.FC = () => {
   const navigator = useNavigation();
+  const [showOnboarding, setShowOnboarding] = useState(true);
+
+  useEffect(() => {
+    async function getShowOnboarding() {
+      const onboarding = await AsyncStorage.getItem('Plamvi@ShowOnboarding');
+      setShowOnboarding(!onboarding);
+      await AsyncStorage.setItem('Plamvi@ShowOnboarding', '1');
+    }
+    getShowOnboarding();
+  }, []);
 
   const handleNavigateTo = useCallback(
     (screen: string) => {
@@ -20,6 +32,10 @@ const WelcomeScreen: React.FC = () => {
     },
     [navigator],
   );
+
+  if (showOnboarding) {
+    return <OnboardingScreen setShowOnboarding={setShowOnboarding} />;
+  }
 
   return (
     <Container>
