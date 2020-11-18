@@ -17,6 +17,7 @@ import AntIcon from 'react-native-vector-icons/AntDesign';
 
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { useDispatch } from 'react-redux';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 
@@ -34,9 +35,9 @@ import {
   PlaceInputContainer,
 } from './styles';
 
-import PlaceInput from '../../components/PlaceInput';
 import SelectState from '../../components/Select/State';
 import SelectCity from '../../components/Select/City';
+import { alertRequest } from '../../redux/modules/alerts/actions';
 
 interface SignUpFormData {
   name: string;
@@ -65,6 +66,7 @@ interface IBGECityResponse {
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const navigator = useNavigation();
+  const dispatch = useDispatch();
 
   const emailInputRef = useRef<TextInput>(null);
   const nameInputRef = useRef<TextInput>(null);
@@ -91,9 +93,8 @@ const SignUp: React.FC = () => {
         }));
         setLoading(false);
         setStates(ufInitials);
-        console.log(ufInitials);
       })
-      .catch(error => {
+      .catch(() => {
         setLoading(false);
       });
   }, []);
@@ -101,7 +102,6 @@ const SignUp: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     setCities([]);
-    console.log(selectedState);
     axios
       .get<IBGECityResponse[]>(
         `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`,
@@ -114,11 +114,9 @@ const SignUp: React.FC = () => {
         }));
         setCities(cityNames);
         setLoading(false);
-        console.log(cityNames);
       })
-      .catch(error => {
+      .catch(() => {
         setLoading(false);
-        console.log(error.status);
       });
   }, [selectedState]);
 
@@ -141,8 +139,6 @@ const SignUp: React.FC = () => {
           city: Yup.string().required('A cidade é obrigatória'),
         });
 
-        console.log(data);
-
         await schema.validate(data, {
           abortEarly: false,
         });
@@ -155,6 +151,14 @@ const SignUp: React.FC = () => {
           'Cadastro realizado',
           'Você já pode fazer seu login no PLamvi!',
         );
+        dispatch(
+          alertRequest({
+            isDialog: true,
+            message:
+              'Cadastro realizado! Você já pode fazer seu login no PLamvi!',
+            messageType: 'success',
+          }),
+        );
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -163,13 +167,16 @@ const SignUp: React.FC = () => {
 
           return;
         }
-        Alert.alert(
-          'Erro no cadastro',
-          'Ocorreu um erro ao fazer cadastro, tente novamente',
+        dispatch(
+          alertRequest({
+            isDialog: true,
+            message: 'Ocorreu um erro ao efetuar o cadastro',
+            messageType: 'danger',
+          }),
         );
       }
     },
-    [navigator],
+    [navigator, dispatch],
   );
 
   return (

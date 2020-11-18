@@ -1,13 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Platform,
   KeyboardAvoidingView,
   TextInput,
   ScrollView,
-  View,
-  ActivityIndicator,
   StyleSheet,
 } from 'react-native';
 import * as Yup from 'yup';
@@ -16,7 +14,6 @@ import { FormHandles } from '@unform/core';
 
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import Spinner from 'react-native-loading-spinner-overlay';
-import axios from 'axios';
 import { authRequest } from '../../redux/modules/auth/actions';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
