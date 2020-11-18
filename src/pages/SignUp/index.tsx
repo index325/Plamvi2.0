@@ -230,6 +230,7 @@ const SignUp: React.FC = () => {
               autoCorrect={false}
               name="password"
               icon="lock"
+              secureTextEntry
               placeholder="Senha"
               returnKeyType="next"
               ref={passwordInputRef}
